@@ -62,14 +62,14 @@ app.get("/visitors/:id", (req, res) => {
   const visitor = visitors.find((v) => v.id.toString() === req.params.id);
   const reservation = reservations.find((r) => r.id === visitor.id);
   const visitor_reserve = {
-    ...visitor,
-    pastReservations: reservation.id,
-    upcomingReservations: reservation.id,
+    // ...visitor,
+    pastReservations: [{ ...reservation }],
+    upcomingReservations: [{ ...reservation }],
   };
   if (!visitor_reserve) {
     res.status(404).json("Visitor not found");
   } else {
-    res.status(200).json(visitor);
+    res.status(200).json(visitor_reserve);
   }
 });
 
